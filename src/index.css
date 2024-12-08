@@ -2,8 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+      font-family: BricolageGrotesque;
+      src: url("./assets/fonts/BricolageGrotesque/BricolageGrotesque-SemiBold.ttf") format("truetype");
+      font-weight: 600;
+    }
+
+
+  @font-face {
+      font-family: SFProRounded;
+      src: url("./assets/fonts/SFProRounded/SF-Pro-Rounded-Semibold.ttf") format("truetype");
+      font-weight: 600;
+    }  
+
+  @font-face {
+      font-family: SFProRounded;
+      src: url("./assets/fonts/SFProRounded/SF-Pro-Rounded-Regular.ttf") format("truetype");
+      font-weight: 400;
+    } 
+
+
+  @font-face {
+      font-family: Poppins;
+      src: url("./assets/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+      font-weight: 600;
+    }
+  @font-face {
+      font-family: Poppins;
+      src: url("./assets/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+      font-weight: 700;
+    }
+
+    * {
+      font-family: SFProRounded;
+    }
+}
+
+@layer utilities {
+  .font-BricolageGrotesque {
+    font-family: BricolageGrotesque;
+  }
+
+  .font-SFProRounded {
+    font-family: SFProRounded;
+  }
+
+  .font-Poppins {
+    font-family: Poppins;
+  }
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
