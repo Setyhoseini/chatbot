@@ -9,7 +9,7 @@ import eye from '../assets/images/eye.svg';
 
 function Login() {
     return (
-        <div className="w-full max-w-[550px] px-8 h-full min-h-[750px] max-h-[886px] flex flex-col items-center">
+        <div className="w-full max-w-[550px] px-8 h-[100vh] min-h-[750px] max-h-[770px] flex flex-col items-center">
             <div className="flex flex-col gap-[24px] text-left w-full mb-10">
 
                 <img src={logo} alt="" className="w-[64px] h-[64px]" />
