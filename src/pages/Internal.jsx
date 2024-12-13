@@ -2,7 +2,8 @@ import menuIcon from '../assets/images/menu-icon.svg'
 import logo from '../assets/images/gpt-logo.svg'
 import exportIcon from '../assets/images/export-icon.svg'
 import sendIcon from '../assets/images/send-icon.svg'
-
+import SentMessage from '../components/SentMessage.jsx';
+import ReceivedMessage from '../components/ReceivedMessage.jsx';
 
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -40,7 +41,11 @@ function Internal() {
                 <img src={exportIcon} alt="" className='w-[40px] h-[40px] ml-auto' />
             </header>
 
-            <div>{user.displayName}</div>
+          {/*  <div>{user.displayName}</div> */}
+
+            <div id='messageContainer' className='w-full overflow-y-scroll relative top-[-1px]'>
+                <SentMessage text="hmmmmmmmmm" />
+            </div>
 
             <footer className='flex gap-[4%] w-full mt-auto items-center justify-center py-6 px-3'>
                 <input type="text" placeholder='Ask me anything...' className='placeholder-gray-text text-[16px] leading-[24px] border-[1px] border-border-color rounded-[30px] px-6 py-4 w-[80%]' />
