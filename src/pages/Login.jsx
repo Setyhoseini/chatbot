@@ -59,7 +59,7 @@ function Login() {
    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         navigate('/internal')
-        console.log("Logged in user:", userCredential.user);
+       // console.log("Logged in user:", userCredential.user);
       })
       .catch((error) => {
         console.error("Error logging in:", error.message);

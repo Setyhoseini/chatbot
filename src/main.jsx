@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import Login from './pages/Login.jsx';
 import Internal from './pages/Internal.jsx';
+import Home from './pages/Home.jsx';
 
 import {
   createBrowserRouter,
@@ -15,7 +16,7 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />
+    element: <Home />
   },
   {
     path: "/internal",
