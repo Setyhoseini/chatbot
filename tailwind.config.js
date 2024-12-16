@@ -15,7 +15,11 @@ export default {
     },
     fontFamily: {
       BricolageGrotesque: ['BricolageGrotesque'],
-    }
+    },
+
+    screens: {
+      'sm': '428px',
+    },
   },
   plugins: [],
 }

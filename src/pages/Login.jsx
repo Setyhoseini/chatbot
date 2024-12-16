@@ -58,7 +58,7 @@ function Login() {
    const loginUser = async () => {
    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/internal')
+        navigate('/home')
        // console.log("Logged in user:", userCredential.user);
       })
       .catch((error) => {

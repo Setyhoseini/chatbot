@@ -5,6 +5,8 @@ import App from './App.jsx'
 import Login from './pages/Login.jsx';
 import Internal from './pages/Internal.jsx';
 import Home from './pages/Home.jsx';
+import Test from './pages/Test.jsx';
+
 
 import {
   createBrowserRouter,
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/internal",
     element: <Internal />
+  },
+  {
+    path: "/home",
+    element: <Home />
   }
 ])
 

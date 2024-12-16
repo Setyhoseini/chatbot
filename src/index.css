@@ -43,7 +43,7 @@
     }
 
     #app-title {
-      background-image:linear-gradient(213.63deg, #00F5B5 19.97%, #051320 80.13%), linear-gradient(211.24deg, #FFF8BC 18.98%, #ADE2FF 81.22%);
+      background:linear-gradient(213.63deg, #00F5B5, #051320), linear-gradient(211.24deg, transparent, #FFF8BC, #ADE2FF);
       
       color: transparent;
       background-clip: text;
