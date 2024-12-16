@@ -4,6 +4,7 @@ import avatar from '../assets/images/avatar.svg'
 import logo from '../assets/images/gpt-logo.svg'
 import plus from '../assets/images/plus.svg'
 import search from '../assets/images/search-icon.svg'
+import ChatCard from '../components/ChatCard.jsx';
 
 export default function Home() {
   return (
@@ -40,27 +41,11 @@ export default function Home() {
             </div>
         </section>
 
-        <section className='w-full p-4 gap-4 flex flex-wrap items-center justify-around'>
-            <div className='text-left border-[1px] border-border-color rounded-[36px] sm:w-[47%] sm:min-w-[167px] flex gap-3 pr-6 py-8 flex-col max-h-[300px] w-[95%]'>
-                <div className='text-green font-[600] text-[16px] leading-5 ml-[18px]'>Tell me the story of a student who was going to school an...</div>
-                <div className='text-gray-text text-[16px] leading-6 ml-[26px]'>Once upon a time, in the quaint town of Meadowville, there lived a spirited high school student name...</div>
-                <div className='text-gray-text font-[600] text-[14px] leading-[18px] opacity-70 ml-[26px]'>5 days ago</div>
-            </div>
-            <div className='text-left border-[1px] border-border-color rounded-[36px] w-[47%] flex gap-3 pr-6 py-8 flex-col min-w-[167px] max-h-[300px]'>
-                <div className='text-green font-[600] text-[16px] leading-5 ml-[18px]'>Tell me the story of a student who was going to school an...</div>
-                <div className='text-gray-text text-[16px] leading-6 ml-[26px]'>Once upon a time, in the quaint town of Meadowville, there lived a spirited high school student name...</div>
-                <div className='text-gray-text font-[600] text-[14px] leading-[18px] opacity-70 ml-[26px]'>5 days ago</div>
-            </div>
-            <div className='text-left border-[1px] border-border-color rounded-[36px] w-[47%] flex gap-3 pr-6 py-8 flex-col min-w-[167px] max-h-[300px]'>
-                <div className='text-green font-[600] text-[16px] leading-5 ml-[18px]'>Tell me the story of a student who was going to school an...</div>
-                <div className='text-gray-text text-[16px] leading-6 ml-[26px]'>Once upon a time, in the quaint town of Meadowville, there lived a spirited high school student name...</div>
-                <div className='text-gray-text font-[600] text-[14px] leading-[18px] opacity-70 ml-[26px]'>5 days ago</div>
-            </div>
-            <div className='text-left border-[1px] border-border-color rounded-[36px] w-[47%] flex gap-3 pr-6 py-8 flex-col min-w-[167px] max-h-[300px]'>
-                <div className='text-green font-[600] text-[16px] leading-5 ml-[18px]'>Tell me the story of a student who was going to school an...</div>
-                <div className='text-gray-text text-[16px] leading-6 ml-[26px]'>Once upon a time, in the quaint town of Meadowville, there lived a spirited high school student name...</div>
-                <div className='text-gray-text font-[600] text-[14px] leading-[18px] opacity-70 ml-[26px]'>5 days ago</div>
-            </div>
+        <section className='w-full p-4 gap-4 flex flex-wrap items-center sm:justify-start justify-around'>
+            <ChatCard prompt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore eaque quae explicabo deserunt, voluptatum quos debitis corrupti nemo harum non! Est eaque eos totam expedita qui praesentium voluptatum distinctio! Eligendi, officia atque alias similique ipsa inventore explicabo accusantium magnam. Tempore dignissimos neque sint deserunt accusantium voluptatibus distinctio totam autem ullam cumque? Facere quos culpa beatae autem provident iste repellat! Non hic dolorem fugit aspernatur repellat perferendis soluta eum molestias perspiciatis dicta natus tenetur commodi impedit consectetur nulla quod, in beatae ipsam esse. Libero itaque soluta consequatur mollitia ipsam optio repudiandae alias minus, ex consectetur neque fugit quibusdam non deserunt." answer="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem error, cupiditate molestias obcaecati fuga quod facere voluptates quidem id recusandae tenetur tempore velit sequi unde numquam ipsam iure itaque voluptatum provident fugit iste magni minus soluta tempora. Maiores iure consectetur, sequi inventore ex ut qui suscipit maxime ratione ea rem veritatis sit itaque aperiam corrupti doloribus ducimus molestias nostrum fugiat vero fugit nisi? Iste fuga impedit est molestiae architecto minima atque, omnis quam non, molestias veritatis optio, odit totam. Voluptatem natus voluptatibus tempora sint eaque iste veritatis. Dolores, molestiae iusto? Mollitia deleniti distinctio corporis officia maiores facilis. Nemo, recusandae nihil. Porro aliquid inventore corporis harum voluptate aspernatur error dolor, debitis iusto amet quia et repellat totam deleniti illum blanditiis, ad ut id provident facere, distinctio odit quos! Nostrum, alias expedita ea debitis ducimus laboriosam sed, commodi accusamus facere consequatur, voluptas eum! Eveniet sint quae quibusdam quisquam mollitia eius sequi aliquam exercitationem dolor quasi, dignissimos velit id modi odio unde rem quis ratione in voluptate adipisci magnam laudantium iste eligendi sit! Sit dignissimos laudantium similique tempore iure expedita! Perferendis dolore aspernatur magni earum, autem suscipit nesciunt iure neque iste fugiat assumenda fugit ab illo error delectus veniam rem eius unde inventore." time="1734382117939" />
+
+                        <ChatCard prompt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore eaque quae explicabo deserunt, voluptatum quos debitis corrupti ibero itaque soluta consequatur mollitia ipsam optio repudiandae alias minus, ex consectetur neque fugit quibusdam non deserunt." answer="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem error, cupiditate moiure expedita! Pet assumenda fugit ab illo error delectus veniam rem eius unde inventore." time="1734382117939" />
+
         </section>
     </div>
   )
