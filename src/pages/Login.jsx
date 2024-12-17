@@ -55,14 +55,21 @@ function Login() {
     const [password, setPassword] = useState('');
 
 
+
+
+  
+
+
+
    const loginUser = async () => {
    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        navigate('/home')
-       // console.log("Logged in user:", userCredential.user);
+      .then(() => {
+        const url = "/home/" + user.uid;
+
+        navigate(url);
       })
-      .catch((error) => {
-        console.error("Error logging in:", error.message);
+      .catch(() => {
+        alert("Something went wrong... Try again :(")
       });
   };
 

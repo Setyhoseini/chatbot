@@ -18,14 +18,14 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Login />
   },
   {
     path: "/internal",
     element: <Internal />
   },
   {
-    path: "/home",
+    path: "/home/:uid",
     element: <Home />
   }
 ])

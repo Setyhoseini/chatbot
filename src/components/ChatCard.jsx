@@ -3,7 +3,7 @@ import React from 'react'
 export default function ChatCard(props) {
     let prompt = props?.prompt;
     let answer = props?.answer;
-    const time = Math.floor(Number(props?.time)/1000);
+    const time = Math.floor(Number(props?.time));
     const now = Math.floor(((new Date).getTime())/1000);
     let diff = Math.abs(time-now);
 
