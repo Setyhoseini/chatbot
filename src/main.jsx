@@ -5,7 +5,7 @@ import App from './App.jsx'
 import Login from './pages/Login.jsx';
 import Internal from './pages/Internal.jsx';
 import Home from './pages/Home.jsx';
-import Test from './pages/Test.jsx';
+import Signup from './pages/Signup.jsx';
 
 
 import {
@@ -21,12 +21,16 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path: "/internal",
+    path: "/internal/:uid/:chatId?",
     element: <Internal />
   },
   {
     path: "/home/:uid",
     element: <Home />
+  },
+  {
+    path: "/signup",
+    element: <Signup />
   }
 ])
 

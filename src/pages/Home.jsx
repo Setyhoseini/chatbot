@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   getFirestore,
   collection,
   getDocs,
   query,
   orderBy,
-  limit,
-  getDoc,
-  doc
+  limit
 } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ChatCard from '../components/ChatCard.jsx';
 
 import arrow from '../assets/images/arrow-icon.svg'
@@ -28,7 +27,6 @@ const firebaseConfig = {
   appId: '1:176616104466:web:14ebc5a47a8ce8195deecb',
   measurementId: 'G-55L58ZEH94'
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -36,41 +34,57 @@ export default function Home() {
   const { uid } = useParams();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchHistory = async () => {
-      try {
-        const list = [];
-        const chatsRef = collection(db, `users/${uid}/chats`);
-        const chatDocs = await getDocs(chatsRef);
+    const auth = getAuth(app);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        if (currentUser.uid !== uid) {
+          navigate("/");
+        } else {
+          try {
+            const list = [];
+            const chatsRef = collection(db, `users/${uid}/chats`);
+            const chatDocs = await getDocs(chatsRef);
 
-        for (const chatDoc of chatDocs.docs) {
-          const messagesRef = collection(db, `users/${uid}/chats/${chatDoc.id}/messages`);
-          const firstMessageQuery = query(messagesRef, orderBy('timestamp', 'asc'), limit(1));
-          const firstMessageSnapshot = await getDocs(firstMessageQuery);
+            for (const chatDoc of chatDocs.docs) {
+              const messagesRef = collection(db, `users/${uid}/chats/${chatDoc.id}/messages`);
+              const firstMessageQuery = query(messagesRef, orderBy('timestamp', 'asc'), limit(1));
+              const firstMessageSnapshot = await getDocs(firstMessageQuery);
 
-          if (!firstMessageSnapshot.empty) {
-            const firstMessage = firstMessageSnapshot.docs[0];
-            const firstMessageData = firstMessage.data();
+              if (!firstMessageSnapshot.empty) {
+                const firstMessage = firstMessageSnapshot.docs[0];
+                const firstMessageData = firstMessage.data();
 
-            list.push({
-              prompt: firstMessageData.prompt,
-              answer: firstMessageData.answer,
-              time: firstMessageData.timestamp.seconds
-            });
+                list.push({
+                  chatId: chatDoc.id,
+                  prompt: firstMessageData.prompt,
+                  answer: firstMessageData.answer,
+                  time: firstMessageData.timestamp.seconds
+                });
+              }
+            }
+            setHistory(list);
+          } catch (error) {
+            alert("Couldn't load history :( Try again.");
           }
         }
-
-        setHistory(list);
-        setLoading(false);
-      } catch (error) {
-        alert("Couldn't load history :( Try again.")
-        setLoading(false);
+      } else {
+        navigate("/");
       }
-    };
+      setLoading(false);
+    });
 
-    fetchHistory();
-  }, [uid]);
+    return () => unsubscribe();
+  }, [uid, navigate]);
+
+  const newTopic = () => { 
+    const url = "/internal/" + uid;
+    navigate(url)
+  }
 
   if (loading) {
     return (
@@ -79,7 +93,6 @@ export default function Home() {
       </div>
     );
   }
-
   return (
     <div className='w-[100vw] max-w-[550px] h-[100vh] min-h-[750px] max-h-[770px] flex flex-col items-center overflow-y-scroll'>
       <header className='w-full sticky top-0 flex p-6 bg-white z-[99]'>
@@ -98,8 +111,8 @@ export default function Home() {
             <img src={logo} alt='Logo' className='w-10 h-10' />
           </div>
           <div className='flex items-center'>
-            <div id='app-title' className='font-BricolageGrotesque'>Chat bot AI</div>
-            <button
+            <div className='app-title font-BricolageGrotesque'>Chat bot AI</div>
+            <button onClick={newTopic}
               type='button'
               className='bg-green rounded-[36px] text-white sm:text-[16px] leading-[20px] font-[600] text-[14px] sm:px-6 px-3 py-4 flex items-center gap-2 ml-auto'
             >
@@ -124,7 +137,7 @@ export default function Home() {
 
       <section className='w-full p-4 gap-4 flex flex-wrap items-center sm:justify-start justify-around'>
         {history.map((chat, index) => (
-          <ChatCard key={index} time={chat.time} prompt={chat.prompt} answer={chat.answer} />
+           <ChatCard uid={uid} chatId={chat.chatId} key={index} time={chat.time} prompt={chat.prompt} answer={chat.answer} />
         ))}
       </section>
     </div>

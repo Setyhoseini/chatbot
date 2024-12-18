@@ -1,6 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function ChatCard(props) {
+
+    const uid = props.uid;
+    const chatId = props.chatId;
+    const navigate = useNavigate();
+    const goToChat = () => {
+    const url = "/internal/" + uid + "/" + chatId;
+    navigate(url);
+  }
+
     let prompt = props?.prompt;
     let answer = props?.answer;
     const time = Math.floor(Number(props?.time));
@@ -38,10 +50,12 @@ export default function ChatCard(props) {
         answer = answer.substring(0, 90) + "...";
     }
   return (
-        <div className='text-left border-[1px] border-border-color rounded-[36px] sm:w-[47%] sm:min-w-[167px] flex gap-3 pr-6 py-8 flex-col max-h-[300px] w-[95%] max-w-[360px] sm:max-h-[350px]'>
+        <button onClick={goToChat} className='bg-transparent w-[95%] max-w-[360px] sm:max-h-[350px] max-h-[300px] sm:w-[47%] sm:min-w-[167px] rounded-[36px] p-0'>
+            <div className='text-left border-[1px] border-border-color rounded-[36px] flex gap-3 pr-6 py-8 flex-col w-full'>
                 <div className='text-green font-[600] text-[16px] leading-5 ml-[18px] break-words'>{prompt}</div>
                 <div className='text-gray-text text-[16px] leading-6 ml-[26px] break-words'>{answer}</div>
                 <div className='text-gray-text font-[600] text-[14px] leading-[18px] opacity-70 ml-[26px]'>{diff}</div>
-        </div>
+            </div>
+        </button>
   )
 }

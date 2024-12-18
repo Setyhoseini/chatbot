@@ -42,7 +42,7 @@
       height: calc(100% - 191px);
     }
 
-    #app-title {
+    .app-title {
       background:linear-gradient(213.63deg, #00F5B5, #051320), linear-gradient(211.24deg, transparent, #FFF8BC, #ADE2FF);
       
       color: transparent;
