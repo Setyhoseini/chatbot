@@ -48,26 +48,38 @@ export default function Home() {
           try {
             const list = [];
             const chatsRef = collection(db, `users/${uid}/chats`);
-            const chatDocs = await getDocs(chatsRef);
+            try {
+              const chatDocs = await getDocs(chatsRef)
+              for (const chatDoc of chatDocs.docs) {
+                const messagesRef = collection(db, `users/${uid}/chats/${chatDoc.id}/messages`);
+                const firstMessageQuery = query(messagesRef, orderBy('timestamp', 'asc'), limit(1));
+                try {
+                  const firstMessageSnapshot = await getDocs(firstMessageQuery);
+                  if (!firstMessageSnapshot.empty) {
+                    const firstMessage = firstMessageSnapshot.docs[0];
+                    const firstMessageData = firstMessage.data();
 
-            for (const chatDoc of chatDocs.docs) {
-              const messagesRef = collection(db, `users/${uid}/chats/${chatDoc.id}/messages`);
-              const firstMessageQuery = query(messagesRef, orderBy('timestamp', 'asc'), limit(1));
-              const firstMessageSnapshot = await getDocs(firstMessageQuery);
-
-              if (!firstMessageSnapshot.empty) {
-                const firstMessage = firstMessageSnapshot.docs[0];
-                const firstMessageData = firstMessage.data();
-
-                list.push({
-                  chatId: chatDoc.id,
-                  prompt: firstMessageData.prompt,
-                  answer: firstMessageData.answer,
-                  time: firstMessageData.timestamp.seconds
-                });
+                    list.push({
+                      chatId: chatDoc.id,
+                      prompt: firstMessageData.prompt,
+                      answer: firstMessageData.answer,
+                      time: firstMessageData.timestamp.seconds
+                    });
+                    setHistory(list);
+                    setLoading(false);
+                  }
+                  else {
+                    alert("Couldn't load history :( Try again.");
+                  }
+                } catch (error) {
+                  alert("Couldn't load history :( Try again.");
+                }
               }
+            } catch (error) {
+              alert("Couldn't load history :( Try again.");
             }
-            setHistory(list);
+            
+            
           } catch (error) {
             alert("Couldn't load history :( Try again.");
           }
@@ -75,7 +87,6 @@ export default function Home() {
       } else {
         navigate("/");
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -84,6 +95,11 @@ export default function Home() {
   const newTopic = () => { 
     const url = "/internal/" + uid;
     navigate(url)
+  }
+
+  const goBack = () => {
+    const url = "/internal/" + uid;
+    navigate(url);
   }
 
   if (loading) {
@@ -96,7 +112,7 @@ export default function Home() {
   return (
     <div className='w-[100vw] max-w-[550px] h-[100vh] min-h-[750px] max-h-[770px] flex flex-col items-center overflow-y-scroll'>
       <header className='w-full sticky top-0 flex p-6 bg-white z-[99]'>
-        <div className='flex items-center gap-5'>
+        <div onClick={goBack} className='flex items-center gap-5 cursor-pointer hover:opacity-50'>
           <img src={arrow} alt='Back' className='w-[24px] h-[24px]' />
           <span className='font-[600] text-[20px] leading-6 text-main-text-color'>Back</span>
         </div>

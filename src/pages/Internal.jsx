@@ -47,29 +47,39 @@ function Internal() {
                 if (currentUser.uid !== uid) {
                   navigate("/");
                 } else {
-                    try {
-                        const list = [];
-                        const messagesRef = collection(db, `users/${uid}/chats/${chatId}/messages`);
-                        const messagesQuery = query(messagesRef, orderBy('timestamp', 'asc'));
-                        const messagesSnapshot = await getDocs(messagesQuery);
-    
-                        for (const messageDoc of messagesSnapshot.docs) {
-                        const prompt = messageDoc.data().prompt;
-                        const answer = messageDoc.data().answer;
-                        const time = messageDoc.data().timestamp.seconds;
-                        list.push([prompt, answer, time]);
+                    if (chatId!=null && chatId!="" && chatId!=undefined) {
+                        try {
+                            const list = [];
+                            const messagesRef = collection(db, `users/${uid}/chats/${chatId}/messages`);
+                            const messagesQuery = query(messagesRef, orderBy('timestamp', 'asc'));
+                        
+                            const messagesSnapshot = await getDocs(messagesQuery)
+                                for (const messageDoc of messagesSnapshot.docs) {
+                                    const prompt = messageDoc.data().prompt;
+                                    const answer = messageDoc.data().answer;
+                                    const time = messageDoc.data().timestamp.seconds;
+                                    list.push([prompt, answer, time]);
+                                }
+                                setMessges(list);
+                                if (messagesSnapshot.docs.length != 0) {
+                                    setLoading(false);
+                                }
+                                else {
+                                    alert("Couldn't load history :( Try again.");
+                                }
+                        } catch (error) {
+                            setLoading(true);
+                            alert("Couldn't load history :( Try again.");
                         }
-                        setMessges(list);
-                        setLoading(false);
-                    } catch (error) {
-                        alert("Couldn't load history :( Try again.")
+                    }
+                    else {
+                        
                         setLoading(false);
                     }
                 }
               } else {
                 navigate("/");
               }
-              setLoading(false);
             });
             return () => unsubscribe();
     }, []);
@@ -144,6 +154,11 @@ function Internal() {
         return final ? weather.days[0].humidity : 0;
     }
 
+    const goToHome = () => {
+        const url = "/home/" + uid;
+        navigate(url);
+      }
+
     const bottomRef = useRef(null);
     useEffect(() => {
          bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -156,8 +171,8 @@ function Internal() {
     }
     return  (
         <div className="w-[100vw] max-w-[550px] h-[100vh] min-h-[750px] max-h-[770px] flex flex-col items-center">
-            <header className="sticky top-0 flex items-center gap-4 p-4 w-full py-9 border-b-[1px] border-border-color">
-                <img src={menuIcon} alt="" className='w-[40px] h-[40px]' />
+            <header className="bg-white sticky top-0 flex items-center gap-4 p-4 w-full py-9 border-b-[1px] border-border-color z-99">
+                <img onClick={goToHome} src={menuIcon} alt="" className='w-[40px] h-[40px] cursor-pointer hover:opacity-50' />
                 <div className='flex gap-4 items-center'>
                     <img src={logo} alt="" className='w-[40px] h-[40px]' />
                     <span className='font-[600] font-Poppins text-[20px] leading-[24px] text-main-text-color'>GPT 4o</span>

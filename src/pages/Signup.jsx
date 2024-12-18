@@ -22,7 +22,7 @@ const firebaseConfig = {
         messagingSenderId: "176616104466",
         appId: "1:176616104466:web:14ebc5a47a8ce8195deecb",
         measurementId: "G-55L58ZEH94"
-    };
+};
 
 function togglePass() {
     var x = document.getElementById("pass");
